@@ -13,7 +13,8 @@ spec:
     spec:
       containers:
       - name: gitlab-runner-docker
-        image: gitlab/gitlab-runner:v1.8.0
+        image: gitlab/gitlab-runner:alpine-v1.9.2
+        command: [ "/bin/sh", "-c", "chmod +x /etc/gitlab-runner/entrypoint; /etc/gitlab-runner/entrypoint" ]
         imagePullPolicy: Always
         resources:
           limits:
@@ -34,4 +35,3 @@ spec:
       - name: config
         configMap:
           name: gitlab-runner-docker
-
