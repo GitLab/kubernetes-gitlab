@@ -14,7 +14,7 @@ spec:
       containers:
       - name: gitlab-runner-docker
         image: gitlab/gitlab-runner:alpine-v1.9.2
-        command: ["/bin/bash", "/etc/gitlab-runner/entrypoint"]
+        command: ["/bin/bash", "/scripts/entrypoint"]
         imagePullPolicy: IfNotPresent
         env:
         - name: REGISTRATION_TOKEN
@@ -30,14 +30,14 @@ spec:
             memory: 500Mi
             cpu: 600m
         volumeMounts:
-        - name: config
-          mountPath: /etc/gitlab-runner
+        - name: scripts
+          mountPath: /scripts
         - name: var-run-docker-sock
           mountPath: /var/run/docker.sock
       volumes:
       - name: var-run-docker-sock
         hostPath:
           path: /var/run/docker.sock
-      - name: config
+      - name: scripts
         configMap:
-          name: gitlab-runner-config
+          name: gitlab-runner-scripts

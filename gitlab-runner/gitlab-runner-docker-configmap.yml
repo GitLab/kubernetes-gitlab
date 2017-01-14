@@ -1,13 +1,15 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: gitlab-runner-config
+  name: gitlab-runner-scripts
   namespace: gitlab
 data:
   entrypoint: |
     #!/bin/bash
 
     set -xe
+
+    cp /scripts/config.toml /etc/gitlab-runner/
 
     # Register the runner
     /entrypoint register --non-interactive \

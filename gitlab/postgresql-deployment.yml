@@ -38,6 +38,9 @@ spec:
         volumeMounts:
         - mountPath: /var/lib/postgresql/data
           name: data
+        - mountPath: /docker-entrypoint-initdb.d
+          name: initdb
+          readOnly: true
         livenessProbe:
           exec:
             command:
@@ -62,3 +65,7 @@ spec:
       - name: data
         persistentVolumeClaim:
           claimName: gitlab-postgresql-storage
+      - name: initdb
+        configMap:
+          name: gitlab-postgresql-initdb
+          defaultMode: 0755
