@@ -14,8 +14,13 @@ spec:
       containers:
       - name: gitlab-runner-docker
         image: gitlab/gitlab-runner:alpine-v1.9.2
-        command: [ "/bin/sh", "-c", "chmod +x /etc/gitlab-runner/entrypoint; /etc/gitlab-runner/entrypoint" ]
-        imagePullPolicy: Always
+        command: ["/bin/bash", "/etc/gitlab-runner/entrypoint"]
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: REGISTRATION_TOKEN
+          secretMapRef:
+            name: gitlab-secrets
+            key: initial_shared_runners_registration_token
         resources:
           limits:
             memory: 500Mi
@@ -34,4 +39,4 @@ spec:
           path: /var/run/docker.sock
       - name: config
         configMap:
-          name: gitlab-runner-docker
+          name: gitlab-runner-config

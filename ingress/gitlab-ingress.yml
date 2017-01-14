@@ -7,17 +7,10 @@ metadata:
     name: gitlab
 spec:
   rules:
-  - host: git.example.com
+  - host: git.192.168.64.19.xip.io
     http:
       paths:
       - path: /
         backend:
           serviceName: gitlab
           servicePort: 80
-  - host: git-ssh.example.com
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: gitlab
-          servicePort: 1022

@@ -13,21 +13,27 @@ spec:
       containers:
       - name: postgresql
         image: postgres:9.5.3
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         env:
         - name: POSTGRES_USER
-          value: gitlab
+          configMapRef:
+            name: gitlab-config
+            key: postgres_user
         - name: POSTGRES_PASSWORD
-          value: +BP52QIxpT/flVCMpL3KXA==
+          secretMapRef:
+            name: gitlab-config
+            key: postgres_password
         - name: POSTGRES_DB
-          value: gitlab_production
+          configMapRef:
+            name: gitlab-config
+            key: postgres_db
         - name: DB_EXTENSION
           value: pg_trgm
         ports:
         - name: postgres
           containerPort: 5432
         volumeMounts:
-        - mountPath: /var/lib/postgresql
+        - mountPath: /var/lib/postgresql/data
           name: data
         livenessProbe:
           exec:

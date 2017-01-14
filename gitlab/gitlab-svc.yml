@@ -10,9 +10,12 @@ spec:
   selector:
     name: gitlab
   ports:
+    - name: https
+      port: 443
+      targetPort: https
     - name: http
       port: 80
       targetPort: http
     - name: ssh
-      port: 1022
+      port: 22
       targetPort: ssh
