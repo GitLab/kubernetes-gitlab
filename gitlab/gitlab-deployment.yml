@@ -104,7 +104,7 @@ spec:
             gitlab_ci['builds_directory'] = '/gitlab-data/builds'
         - name: GITLAB_POST_RECONFIGURE_SCRIPT
           value: |
-            ( /opt/gitlab/bin/gitlab-rails runner -e production 'Doorkeeper::Application.where(uid: ENV['MATTERMOST_APP_UID'], secret: ENV['MATTERMOST_APP_SECRET'], redirect_uri: "#{ENV['GITLAB_MATTERMOST_EXTERNAL_SCHEME']}://${ENV['GITLAB_MATTERMOST_EXTERNAL_HOSTNAME']}/signup/gitlab/complete\\r\\n#{ENV['GITLAB_MATTERMOST_EXTERNAL_SCHEME']}://${ENV['GITLAB_MATTERMOST_EXTERNAL_HOSTNAME']}/login/gitlab/complete\", name: \"GitLab Mattermost\").first_or_create;' )
+            ( /opt/gitlab/bin/gitlab-rails runner -e production 'Doorkeeper::Application.where(uid: ENV['MATTERMOST_APP_UID'], secret: ENV['MATTERMOST_APP_SECRET'], redirect_uri: "#{ENV['GITLAB_MATTERMOST_EXTERNAL_SCHEME']}://${ENV['GITLAB_MATTERMOST_EXTERNAL_HOSTNAME']}/signup/gitlab/complete\r\n#{ENV['GITLAB_MATTERMOST_EXTERNAL_SCHEME']}://${ENV['GITLAB_MATTERMOST_EXTERNAL_HOSTNAME']}/login/gitlab/complete", name: "GitLab Mattermost").first_or_create;' )
         ports:
         - name: https
           containerPort: 443
