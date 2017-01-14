@@ -16,17 +16,20 @@ spec:
         imagePullPolicy: IfNotPresent
         env:
         - name: POSTGRES_USER
-          configMapRef:
-            name: gitlab-config
-            key: postgres_user
+          valueFrom:
+            configMapKeyRef:
+              name: gitlab-config
+              key: postgres_user
         - name: POSTGRES_PASSWORD
-          secretMapRef:
-            name: gitlab-config
-            key: postgres_password
+          valueFrom:
+            secretKeyRef:
+              name: gitlab-secrets
+              key: postgres_password
         - name: POSTGRES_DB
-          configMapRef:
-            name: gitlab-config
-            key: postgres_db
+          valueFrom:
+            configMapKeyRef:
+              name: gitlab-config
+              key: postgres_db
         - name: DB_EXTENSION
           value: pg_trgm
         ports:

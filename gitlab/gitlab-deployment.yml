@@ -19,37 +19,65 @@ spec:
           "sed -i \"s/environment ({'GITLAB_ROOT_PASSWORD' => initial_root_password }) if initial_root_password/environment ({'GITLAB_ROOT_PASSWORD' => initial_root_password, 'GITLAB_SHARED_RUNNERS_REGISTRATION_TOKEN' => node['gitlab']['gitlab-rails']['initial_shared_runners_registration_token'] })/g\" /opt/gitlab/embedded/cookbooks/gitlab/recipes/database_migrations.rb; exec /assets/wrapper"]
         env:
         - name: GITLAB_EXTERNAL_SCHEME
-          configMapRef:
-            name: gitlab-config
-            key: external_scheme
+          valueFrom:
+            configMapKeyRef:
+              name: gitlab-config
+              key: external_scheme
         - name: GITLAB_EXTERNAL_HOSTNAME
-          configMapRef:
-            name: gitlab-config
-            key: external_hostname
+          valueFrom:
+            configMapKeyRef:
+              name: gitlab-config
+              key: external_hostname
         - name: GITLAB_REGISTRY_EXTERNAL_SCHEME
-          configMapRef:
-            name: gitlab-config
-            key: registry_external_scheme
+          valueFrom:
+            configMapKeyRef:
+              name: gitlab-config
+              key: registry_external_scheme
         - name: GITLAB_REGISTRY_EXTERNAL_HOSTNAME
-          configMapRef:
-            name: gitlab-config
-            key: registry_external_hostname
+          valueFrom:
+            configMapKeyRef:
+              name: gitlab-config
+              key: registry_external_hostname
+        - name: GITLAB_MATTERMOST_EXTERNAL_SCHEME
+          valueFrom:
+            configMapKeyRef:
+              name: gitlab-config
+              key: mattermost_external_scheme
+        - name: GITLAB_MATTERMOST_EXTERNAL_HOSTNAME
+          valueFrom:
+            configMapKeyRef:
+              name: gitlab-config
+              key: mattermost_external_hostname
         - name: POSTGRES_USER
-          configMapRef:
-            name: gitlab-config
-            key: postgres_user
+          valueFrom:
+            configMapKeyRef:
+              name: gitlab-config
+              key: postgres_user
         - name: POSTGRES_PASSWORD
-          secretMapRef:
-            name: gitlab-config
-            key: postgres_password
+          valueFrom:
+            secretKeyRef:
+              name: gitlab-secrets
+              key: postgres_password
         - name: POSTGRES_DB
-          configMapRef:
-            name: gitlab-config
-            key: postgres_db
+          valueFrom:
+            configMapKeyRef:
+              name: gitlab-config
+              key: postgres_db
         - name: GITLAB_INITIAL_SHARED_RUNNERS_REGISTRATION_TOKEN
-          secretMapRef:
-            name: gitlab-secrets
-            key: initial_shared_runners_registration_token
+          valueFrom:
+            secretKeyRef:
+              name: gitlab-secrets
+              key: initial_shared_runners_registration_token
+        - name: MATTERMOST_APP_UID
+          valueFrom:
+            configMapKeyRef:
+              name: gitlab-config
+              key: mattermost_app_uid
+        - name: MATTERMOST_APP_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: gitlab-secrets
+              key: mattermost_app_secret
         - name: GITLAB_OMNIBUS_CONFIG
           value: |
             external_url "#{ENV['GITLAB_EXTERNAL_SCHEME']}://#{ENV['GITLAB_EXTERNAL_HOSTNAME']}"
@@ -74,6 +102,9 @@ spec:
             gitlab_rails['shared_path'] = '/gitlab-data/shared'
             gitlab_rails['uploads_directory'] = '/gitlab-data/uploads'
             gitlab_ci['builds_directory'] = '/gitlab-data/builds'
+        - name: GITLAB_POST_RECONFIGURE_SCRIPT
+          value: |
+            ( /opt/gitlab/bin/gitlab-rails runner -e production 'Doorkeeper::Application.where(uid: ENV['MATTERMOST_APP_UID'], secret: ENV['MATTERMOST_APP_SECRET'], redirect_uri: "#{ENV['GITLAB_MATTERMOST_EXTERNAL_SCHEME']}://${ENV['GITLAB_MATTERMOST_EXTERNAL_HOSTNAME']}/signup/gitlab/complete\\r\\n#{ENV['GITLAB_MATTERMOST_EXTERNAL_SCHEME']}://${ENV['GITLAB_MATTERMOST_EXTERNAL_HOSTNAME']}/login/gitlab/complete\", name: \"GitLab Mattermost\").first_or_create;' )
         ports:
         - name: https
           containerPort: 443

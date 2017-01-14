@@ -4,10 +4,13 @@ metadata:
   name: gitlab-config
   namespace: gitlab
 data:
-  external_scheme: https
+  external_scheme: http
   external_hostname: git.192.168.64.19.xip.io
-  registry_external_scheme: https
+  registry_external_scheme: http
   registry_external_hostname: registry.192.168.64.19.xip.io
+  mattermost_external_scheme: http
+  mattermost_external_hostname: mattermost.192.168.64.19.xip.io
+  mattermost_app_uid: aadas
   postgres_user: gitlab
   postgres_db: gitlab_production
 ---
@@ -17,5 +20,6 @@ metadata:
   name: gitlab-secrets
   namespace: gitlab
 data:
-  postgres_password: +BP52QIxpT/flVCMpL3KXA==
-  initial_shared_runners_registration_token: 49uf3mzs1qdz5vgo
+  postgres_password: NDl1ZjNtenMxcWR6NXZnbw==
+  initial_shared_runners_registration_token: NDl1ZjNtenMxcWR6NXZnbw==
+  mattermost_app_secret: NDl1ZjNtenMxcWR6NXZnbw==

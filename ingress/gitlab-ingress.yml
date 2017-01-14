@@ -14,3 +14,17 @@ spec:
         backend:
           serviceName: gitlab
           servicePort: 80
+  - host: registry.192.168.64.19.xip.io
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: gitlab
+          servicePort: 80
+  - host: mattermost.192.168.64.19.xip.io
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: gitlab
+          servicePort: 80

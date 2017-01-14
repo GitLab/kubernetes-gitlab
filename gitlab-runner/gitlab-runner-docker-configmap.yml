@@ -12,7 +12,6 @@ data:
     # Register the runner
     /entrypoint register --non-interactive \
       --url http://gitlab.gitlab/ci \
-      --docker-image 'ruby:2.3' \
       --executor kubernetes \
       --kubernetes-privileged=true
 
