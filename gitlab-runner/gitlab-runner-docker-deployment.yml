@@ -15,6 +15,9 @@ spec:
       - name: gitlab-runner-docker
         image: gitlab/gitlab-runner:alpine-v1.9.2
         command: [ "/bin/sh", "-c", "chmod +x /etc/gitlab-runner/entrypoint; /etc/gitlab-runner/entrypoint" ]
+        env:
+        - name: KUBERNETES_NAMESPACE
+          value: gitlab
         imagePullPolicy: Always
         resources:
           limits:

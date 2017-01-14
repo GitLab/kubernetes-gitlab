@@ -19,7 +19,6 @@ data:
     [[runners]]
       name = "gitlab-docker-runner"
       url = "http://gitlab.gitlab/ci"
-      token = ""
       executor = "kubernetes"
       [runners.kubernetes]
-      image = "ruby:2.3"
+        image = "ruby:2.3"
