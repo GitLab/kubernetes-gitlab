@@ -10,15 +10,10 @@ data:
     # Register the runner
     /entrypoint register --non-interactive -u http://gitlab.gitlab/ci -r '49uf3mzs1qdz5vgo' --docker-image 'ruby:2.3' --executor kubernetes
 
+
+    cat /etc/gitlab-runner/config.toml
     # Start the runner
     /entrypoint run --user=gitlab-runner --working-directory=/home/gitlab-runner
   config.toml: |
     concurrent = 10
     check_interval = 1
-
-    [[runners]]
-      name = "gitlab-docker-runner"
-      url = "http://gitlab.gitlab/ci"
-      executor = "kubernetes"
-      [runners.kubernetes]
-        image = "ruby:2.3"
