@@ -97,7 +97,6 @@ spec:
             mattermost['service_port'] = '8065'
 
             registry['registry_http_addr'] = '0.0.0.0:8105'
-            registry['token_realm'] = 'http://localhost:8005'
 
             postgresql['enable'] = false
             gitlab_rails['db_host'] = 'gitlab-postgresql'
