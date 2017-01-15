@@ -6,7 +6,6 @@ metadata:
   labels:
     name: gitlab
 spec:
-  type: LoadBalancer
   selector:
     name: gitlab
   ports:
