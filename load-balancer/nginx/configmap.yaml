@@ -4,7 +4,7 @@ data:
   proxy-read-timeout: "600"
   proxy-send-imeout: "600"
   hsts-include-subdomains: "false"
-  body-size: "64m"
+  body-size: "512m"
   server-name-hash-bucket-size: "256"
 kind: ConfigMap
 metadata:
