@@ -126,6 +126,7 @@ spec:
             gitlab_rails['shared_path'] = '/gitlab-data/shared'
             gitlab_rails['uploads_directory'] = '/gitlab-data/uploads'
             gitlab_ci['builds_directory'] = '/gitlab-data/builds'
+            gitlab_rails['registry_path'] = '/gitlab-data/registry'
         - name: GITLAB_POST_RECONFIGURE_SCRIPT
           value: |
             /opt/gitlab/bin/gitlab-rails runner -e production \
