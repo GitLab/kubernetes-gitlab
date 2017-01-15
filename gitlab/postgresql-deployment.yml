@@ -36,7 +36,7 @@ spec:
         - name: postgres
           containerPort: 5432
         volumeMounts:
-        - mountPath: /var/lib/postgresql/data
+        - mountPath: /var/lib/postgresql
           name: data
         - mountPath: /docker-entrypoint-initdb.d
           name: initdb
@@ -54,7 +54,7 @@ spec:
         readinessProbe:
           exec:
             command:
-            - pg_isready
+            - pg_isreadyx§
             - -h
             - localhost
             - -U
@@ -68,4 +68,3 @@ spec:
       - name: initdb
         configMap:
           name: gitlab-postgresql-initdb
-          defaultMode: 0755
