@@ -5,11 +5,11 @@ metadata:
   namespace: gitlab
 data:
   external_scheme: https
-  external_hostname: gitlab.tanuki.ayucloud.ovh
+  external_hostname: gitlab.gke.twkie.net
   registry_external_scheme: https
-  registry_external_hostname: registry.tanuki.ayucloud.ovh
+  registry_external_hostname: registry.gke.twkie.net
   mattermost_external_scheme: https
-  mattermost_external_hostname: mattermost.tanuki.ayucloud.ovh
+  mattermost_external_hostname: mattermost.gke.twkie.net
   mattermost_app_uid: aadas
   postgres_user: gitlab
   postgres_db: gitlab_production

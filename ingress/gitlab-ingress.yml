@@ -11,10 +11,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - gitlab.tanuki.ayucloud.ovh
+    - gitlab.gke.twkie.net
     secretName: gitlab-tls
   rules:
-  - host: gitlab.tanuki.ayucloud.ovh
+  - host: gitlab.gke.twkie.net
     http:
       paths:
       - path: /
@@ -35,10 +35,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - registry.tanuki.ayucloud.ovh
+    - registry.gke.twkie.net
     secretName: registry-tls
   rules:
-  - host: registry.tanuki.ayucloud.ovh
+  - host: registry.gke.twkie.net
     http:
       paths:
       - path: /
@@ -59,10 +59,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - mattermost.tanuki.ayucloud.ovh
+    - mattermost.gke.twkie.net
     secretName: mattermost-tls
   rules:
-  - host: mattermost.tanuki.ayucloud.ovh
+  - host: mattermost.gke.twkie.net
     http:
       paths:
       - path: /
