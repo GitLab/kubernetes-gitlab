@@ -13,12 +13,13 @@ spec:
     spec:
       containers:
       - name: gitlab
-        image: gitlab/gitlab-ce:8.15.4-ce.1
+        image: twk3/gitlab-ce:i2p
         imagePullPolicy: Always
         env:
         - name: GITLAB_OMNIBUS_CONFIG
           value: |
             external_url "http://gitlab.example.com"
+            gitlab_rails['initial_shared_runners_registration_token'] = '49uf3mzs1qdz5vgo'
             postgresql['enable']=false
             gitlab_rails['db_host'] = 'gitlab-postgresql'
             gitlab_rails['db_password']='+BP52QIxpT/flVCMpL3KXA=='

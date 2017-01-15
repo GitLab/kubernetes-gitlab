@@ -4,24 +4,16 @@ metadata:
   name: gitlab-runner-docker
   namespace: gitlab
 data:
-  config.toml: |
-    concurrent = 4
-    check_interval = 1
+  entrypoint: |
+    #!/bin/bash
 
-    [[runners]]
-      name = "gitlab-docker-runner"
-      url = "http://gitlab.gitlab/ci"
-      token = ""
-      executor = "docker"
-      [runners.docker]
-        tls_verify = false
-        image = "python:3.5"
-        privileged = true
-        disable_cache = false
-        volumes = ["/cache"]
-      [runners.cache]
-        Type = "s3"
-        ServerAddress = "http://minio.gitlab/"
-        AccessKey = ""
-        SecretKey = ""
-        BucketName = "runner"
+    # Register the runner
+    /entrypoint register --non-interactive -u http://gitlab.gitlab/ci -r '49uf3mzs1qdz5vgo' --docker-image 'ruby:2.3' --executor kubernetes
+
+
+    cat /etc/gitlab-runner/config.toml
+    # Start the runner
+    /entrypoint run --user=gitlab-runner --working-directory=/home/gitlab-runner
+  config.toml: |
+    concurrent = 10
+    check_interval = 1
