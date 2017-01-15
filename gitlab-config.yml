@@ -5,11 +5,11 @@ metadata:
   namespace: gitlab
 data:
   external_scheme: http
-  external_hostname: git.192.168.64.19.xip.io
+  external_hostname: git.104.155.5.78.xip.io
   registry_external_scheme: http
-  registry_external_hostname: registry.192.168.64.19.xip.io
+  registry_external_hostname: registry.104.155.5.78.xip.io
   mattermost_external_scheme: http
-  mattermost_external_hostname: mattermost.192.168.64.19.xip.io
+  mattermost_external_hostname: mattermost.104.155.5.78.xip.io
   mattermost_app_uid: aadas
   postgres_user: gitlab
   postgres_db: gitlab_production

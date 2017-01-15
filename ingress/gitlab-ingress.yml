@@ -5,9 +5,12 @@ metadata:
   namespace: gitlab
   labels:
     name: gitlab
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    kubernetes.io/ingress.class: "nginx"
 spec:
   rules:
-  - host: git.35.186.201.110.xip.io
+  - host: git.104.155.5.78.xip.io
     http:
       paths:
       - path: /
@@ -22,9 +25,12 @@ metadata:
   namespace: gitlab
   labels:
     name: gitlab
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    kubernetes.io/ingress.class: "nginx"
 spec:
   rules:
-  - host: registry.35.186.201.110.xip.io
+  - host: registry.104.155.5.78.xip.io
     http:
       paths:
       - path: /
@@ -39,9 +45,12 @@ metadata:
   namespace: gitlab
   labels:
     name: gitlab
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    kubernetes.io/ingress.class: "nginx"
 spec:
   rules:
-  - host: mattermost.35.186.201.110.xip.io
+  - host: mattermost.104.155.5.78.xip.io
     http:
       paths:
       - path: /

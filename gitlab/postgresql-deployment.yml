@@ -54,7 +54,7 @@ spec:
         readinessProbe:
           exec:
             command:
-            - pg_isreadyx§
+            - pg_isready
             - -h
             - localhost
             - -U
