@@ -13,7 +13,7 @@ data:
 
     # Register the runner
     /entrypoint register --non-interactive \
-      --url http://gitlab.gitlab/ci \
+      --url http://gitlab-nodeport.gitlab:8005/ci \
       --executor kubernetes \
       --kubernetes-privileged=true
 

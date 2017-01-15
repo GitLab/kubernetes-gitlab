@@ -9,14 +9,18 @@ metadata:
     kubernetes.io/tls-acme: "true"
     kubernetes.io/ingress.class: "nginx"
 spec:
+  tls:
+  - hosts:
+    - gitlab.tanuki.ayucloud.ovh
+    secretName: gitlab-tls
   rules:
-  - host: git.104.155.5.78.xip.io
+  - host: gitlab.tanuki.ayucloud.ovh
     http:
       paths:
       - path: /
         backend:
           serviceName: gitlab
-          servicePort: 80
+          servicePort: 8005
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -29,14 +33,18 @@ metadata:
     kubernetes.io/tls-acme: "true"
     kubernetes.io/ingress.class: "nginx"
 spec:
+  tls:
+  - hosts:
+    - registry.tanuki.ayucloud.ovh
+    secretName: registry-tls
   rules:
-  - host: registry.104.155.5.78.xip.io
+  - host: registry.tanuki.ayucloud.ovh
     http:
       paths:
       - path: /
         backend:
           serviceName: gitlab
-          servicePort: 80
+          servicePort: 8105
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -49,11 +57,15 @@ metadata:
     kubernetes.io/tls-acme: "true"
     kubernetes.io/ingress.class: "nginx"
 spec:
+  tls:
+  - hosts:
+    - mattermost.tanuki.ayucloud.ovh
+    secretName: mattermost-tls
   rules:
-  - host: mattermost.104.155.5.78.xip.io
+  - host: mattermost.tanuki.ayucloud.ovh
     http:
       paths:
       - path: /
         backend:
           serviceName: gitlab
-          servicePort: 80
+          servicePort: 8065

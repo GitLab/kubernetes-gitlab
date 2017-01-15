@@ -86,6 +86,18 @@ spec:
 
             gitlab_rails['initial_shared_runners_registration_token'] = ENV['GITLAB_INITIAL_SHARED_RUNNERS_REGISTRATION_TOKEN']
 
+            nginx['enable'] = false
+            registry_nginx['enable'] = false
+            mattermost_nginx['enable'] = false
+
+            gitlab_workhorse['listen_network'] = 'tcp'
+            gitlab_workhorse['listen_addr'] = '0.0.0.0:8005'
+
+            mattermost['service_address'] = '0.0.0.0'
+            mattermost['service_port'] = '8065'
+
+            registry['registry_http_addr'] = '0.0.0.0:8105'
+
             postgresql['enable'] = false
             gitlab_rails['db_host'] = 'gitlab-postgresql'
             gitlab_rails['db_password'] = ENV['POSTGRES_PASSWORD']
@@ -120,10 +132,12 @@ spec:
               'Doorkeeper::Application.where(uid: ENV["MATTERMOST_APP_UID"], secret: ENV["MATTERMOST_APP_SECRET"], redirect_uri: "#{ENV["GITLAB_MATTERMOST_EXTERNAL_SCHEME"]}://#{ENV["GITLAB_MATTERMOST_EXTERNAL_HOSTNAME"]}/signup/gitlab/complete\r\n#{ENV["GITLAB_MATTERMOST_EXTERNAL_SCHEME"]}://#{ENV["GITLAB_MATTERMOST_EXTERNAL_HOSTNAME"]}/login/gitlab/complete", name: "GitLab Mattermost").first_or_create;'
             createdb -h 'gitlab-postgresql' -U postgres --owner '${POSTGRES_USER}' 'mattermost_production'
         ports:
-        - name: https
-          containerPort: 443
-        - name: http
-          containerPort: 80
+        - name: registry
+          containerPort: 8105
+        - name: mattermost
+          containerPort: 8065
+        - name: workhorse
+          containerPort: 8005
         - name: ssh
           containerPort: 22
         volumeMounts:
@@ -134,13 +148,13 @@ spec:
         livenessProbe:
           httpGet:
             path: /help
-            port: 80
+            port: 8005
           initialDelaySeconds: 180
           timeoutSeconds: 15
         readinessProbe:
           httpGet:
             path: /help
-            port: 80
+            port: 8005
           initialDelaySeconds: 15
           timeoutSeconds: 1
       volumes:
